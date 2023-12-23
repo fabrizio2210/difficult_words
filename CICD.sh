@@ -67,4 +67,4 @@ docker image prune --force
 #####
 # Run
 
-docker service update --force difficult-words_frontend
+docker service update --force --image fabrizio2210/difficult_words-frontend:armv7hf  difficult-words_frontend
