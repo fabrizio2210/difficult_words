@@ -12,6 +12,18 @@ export default defineConfig({
       registerType: 'autoUpdate',
       devOptions: {
         enabled: true,
+      },
+      includeAssets: ['favicon.ico', 'pwa-192x192.png'],
+      manifest: {
+        name: 'Difficult words',
+        short_name: 'words',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          }
+        ]
       }
     })
   ],
