@@ -63,3 +63,8 @@ docker push fabrizio2210/difficult_words-frontend:${arch}
 # Clean
 docker container prune --force
 docker image prune --force
+
+#####
+# Run
+
+docker service update --force difficult-words_frontend
