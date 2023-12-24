@@ -8,8 +8,16 @@ export const useWordsStore = defineStore({
   state: () => ({
     wordsFrequency: new Map(),
     words: [],
+    lookedUpCount: 0,
+    loading: false,
   }),
   actions: {
+    reset() {
+      this.wordsFrequency.clear();
+      this.words = [];
+      this.loading = false;
+      this.lookedUpCount = 0;
+    },
     validString(string) {
       var pass = true;
       /\d/.test(string) && (pass = false);
@@ -35,6 +43,7 @@ export const useWordsStore = defineStore({
       return polished;
     },
     storeWords(text) {
+      this.loading = true;
       var words = text.split(/\s+|\n|'/);
       for (var i = 0; i < words.length; i += 1) {
         var word = this.polishString(words[i]);
@@ -53,8 +62,8 @@ export const useWordsStore = defineStore({
       }
       this.words = await Promise.all(this.words);
       this.words = this.words.filter((e) => e);
-      console.log(this.words);
       this.words = this.words.sort((a, b) => a.frequency - b.frequency);
+      this.loading = false;
     },
     async fetchDefinition(word) {
       var url = new URL(`?sp=${word}&md=fd&max=1`, datamuseUrl);
@@ -64,11 +73,15 @@ export const useWordsStore = defineStore({
         var frequency = d["tags"][0];
         frequency = parseFloat(frequency.split(":")[1]);
         var definitions = d["defs"];
-        return { word, frequency, definitions };
+        this.lookedUpCount = this.lookedUpCount + 1;
+        if (definitions) {
+          return { word, frequency, definitions };
+        } else {
+          return null;
+        }
       } catch (error) {
-        console.log(error);
+        return null;
       }
-      return null;
     },
   },
 });
