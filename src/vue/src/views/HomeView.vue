@@ -1,7 +1,8 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useWordsStore } from "../stores/words";
-const { words, lookedUpCount, wordsFrequency, wordsContext, loading } = storeToRefs(useWordsStore());
+const { words, lookedUpCount, wordsFrequency, wordsContext, loading } =
+  storeToRefs(useWordsStore());
 </script>
 
 <template>
@@ -20,12 +21,21 @@ const { words, lookedUpCount, wordsFrequency, wordsContext, loading } = storeToR
       <button @click="scan">Scan</button>
     </div>
     <div>
-      <progress v-if="loading" :value="100 * lookedUpCount / wordsFrequency.size" id="lookingup" max="100"></progress>
-    </div>  
+      <progress
+        v-if="loading"
+        :value="(100 * lookedUpCount) / wordsFrequency.size"
+        id="lookingup"
+        max="100"
+      ></progress>
+    </div>
     <div v-for="word in words">
       <h2>{{ word.word }}</h2>
-      <h3 v-if="word.word">occurres {{ wordsFrequency.get(word.word)}} time(s)</h3>
-      <h4 v-if="word.word">context: <i>{{ wordsContext.get(word.word)}}</i></h4>
+      <h3 v-if="word.word">
+        occurres {{ wordsFrequency.get(word.word) }} time(s)
+      </h3>
+      <h4 v-if="word.word">
+        context: <i>{{ wordsContext.get(word.word) }}</i>
+      </h4>
       <ul>
         <li v-for="def in word.definitions">
           {{ def }}
