@@ -38,7 +38,6 @@ export default {
   methods: {
     scan(event) {
       const file_name = this.$refs.fileInput.value;
-      console.log(file_name);
       var reader = new FileReader();
       reader.onload = function () {
         var text = reader.result;
