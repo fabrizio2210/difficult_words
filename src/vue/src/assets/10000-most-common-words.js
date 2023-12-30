@@ -1,4 +1,7 @@
 export const commonWords = [
+  "bye-bye",
+  "doesn't",
+  "don't",
   "couldn",
   "aren",
   "ain",

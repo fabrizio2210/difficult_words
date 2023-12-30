@@ -39,9 +39,10 @@ export const useWordsStore = defineStore({
     },
     polishString(string) {
       var polished = string.toLowerCase();
-      polished = polished.replace(/[^a-z\-]/gm, "");
+      polished = polished.replace(/\{.+\}/gm, "");
       polished = polished.replace(/<i>/gm, "");
       polished = polished.replace(/<\/i>/gm, "");
+      polished = polished.replace(/[^a-z\-]/gm, "");
       return polished;
     },
     storeWords(text) {
