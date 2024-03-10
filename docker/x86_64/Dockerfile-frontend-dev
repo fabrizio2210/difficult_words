@@ -12,7 +12,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y nodejs
 
 RUN mkdir -p ${APP_FOLDER}/src
-COPY src/vue/package.json ${APP_FOLDER}/
+COPY src/vue/package.json src/vue/.env.local* ${APP_FOLDER}/
 COPY src/vue/vite.config.js ${APP_FOLDER}/
 COPY src/vue/index.html ${APP_FOLDER}/
 COPY src/vue/public/ ${APP_FOLDER}/
