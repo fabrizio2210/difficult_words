@@ -72,7 +72,6 @@ export default {
       var reader = new FileReader();
       const { fetchSubtitlesText } = useOpensubtitlesStore();
       var reading = function (text) {
-        console.log("scan text: ", text);
         const { reset, storeWords, enrichWords } = useWordsStore();
         reset();
         storeWords(text);
