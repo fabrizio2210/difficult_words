@@ -68,18 +68,29 @@ export default {
     };
   },
   methods: {
-    scan(event) {
-      const file_name = this.$refs.fileInput.value;
+    async scan(event) {
       var reader = new FileReader();
-      reader.onload = function () {
-        var text = reader.result;
-        // Process the text here.
+      const { fetchSubtitlesText } = useOpensubtitlesStore();
+      var reading = function (text) {
+        console.log("scan text: ", text);
         const { reset, storeWords, enrichWords } = useWordsStore();
         reset();
         storeWords(text);
         enrichWords();
       };
-      reader.readAsText(this.$refs.fileInput.files[0]);
+      const file_name = this.$refs.fileInput.value;
+      if (file_name == "") {
+        // No file so downloading from OpenSubtitles.
+        let text = await fetchSubtitlesText(this.search_input);
+        reading(text);
+      } else {
+        reader.readAsText(this.$refs.fileInput.files[0]);
+        reader.onload = function () {
+          var text = reader.result;
+          // Process the text here.
+          reading(text);
+        };
+      }
     },
   },
   asyncComputed: {
