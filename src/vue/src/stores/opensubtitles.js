@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 const opensubtitlesUrl = "https://api.opensubtitles.com";
+const userAgent = "Difficult words 0.0";
 
 export const useOpensubtitlesStore = defineStore({
   id: "opensubtitles",
@@ -30,15 +31,8 @@ export const useOpensubtitlesStore = defineStore({
       let file_path = await this.fetchTitleFileURL(title);
       console.log("file_path: ", file_path);
       if ((file_path != null) && (file_path != "")){
-        let result = null;
-        let xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", file_path, false);
-        xmlhttp.send();
-        if (xmlhttp.status == 200) {
-          result = xmlhttp.responseText;
-        }
-        console.log("result: ", result);
-        return result;
+        var payload = await fetch(file_path).then((response) => response.text());
+        return payload;
       }
       return null;
     },
@@ -51,7 +45,7 @@ export const useOpensubtitlesStore = defineStore({
           headers: {
             "Content-Type": "application/json",
             "Api-Key": this.api_key,
-            "User-Agent": "Difficult words 0.0",
+            "User-Agent": userAgent,
           },
           method: "POST",
           body: JSON.stringify({ file_id: file_id }),
@@ -76,14 +70,14 @@ export const useOpensubtitlesStore = defineStore({
       }
       const encodedText = encodeURIComponent(text);
       var url = new URL(
-        `/api/v1/subtitles?query=${encodedText}`,
+        `/api/v1/subtitles?query=${encodedText}&foreign_parts_only=exclude&languages=en`,
         opensubtitlesUrl,
       );
       var payload = await fetch(url, {
         headers: {
           "Content-Type": "application/json",
           "Api-Key": this.api_key,
-          "User-Agent": "Difficult words 0.0",
+          "User-Agent": userAgent,
         },
       }).then((response) => response.json());
       if (typeof payload.data !== "undefined") {
