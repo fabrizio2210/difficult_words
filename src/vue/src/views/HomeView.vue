@@ -31,11 +31,12 @@ if (localStorage.getItem("API_KEY") !== null) {
         id="file"
         name="file"
         ref="fileInput"
+        v-on:change="fileSelectInput"
         accept=".srt, .text, .txt"
       />
     </div>
     <div>
-      <button @click="scan">Scan</button>
+      <button :disabled='isScanDisabled' @click="scan">Scan</button>
     </div>
     <div>
       <progress
@@ -65,7 +66,8 @@ if (localStorage.getItem("API_KEY") !== null) {
 export default {
   data() {
     return {
-    };
+      fileInput: ""
+    }
   },
   methods: {
     reading(text) {
@@ -77,9 +79,10 @@ export default {
     async scan(event) {
       var reader = new FileReader();
       const { fetchSubtitlesText } = useOpensubtitlesStore();
-      const file_name = this.$refs.fileInput.value;
+      const file_name = this.fileInput;
       if (file_name != "") {
         reader.readAsText(this.$refs.fileInput.files[0]);
+        reader.reading = this.reading;
         reader.onload = function () {
           var text = reader.result;
           // Process the text here.
@@ -97,6 +100,14 @@ export default {
       const { fetchHints } = useOpensubtitlesStore();
       return await fetchHints(input);
     },
+    fileSelectInput() {
+      this.fileInput = this.$refs.fileInput.value;
+    },
+  },
+  computed: {
+    isScanDisabled: function() {
+      return this.fileInput == "";
+    }
   },
   asyncComputed: {
   },
