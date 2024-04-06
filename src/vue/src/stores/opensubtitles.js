@@ -30,16 +30,18 @@ export const useOpensubtitlesStore = defineStore({
     async fetchSubtitlesText(title) {
       let file_path = await this.fetchTitleFileURL(title);
       console.log("file_path: ", file_path);
-      if ((file_path != null) && (file_path != "")){
-        var payload = await fetch(file_path).then((response) => response.text());
+      if (file_path != null && file_path != "") {
+        var payload = await fetch(file_path).then((response) =>
+          response.text(),
+        );
         return payload;
       }
       return null;
     },
     async fetchTitleFileURL(title) {
       const file_id = await this.fetchTitleFile(title);
-      console.log("file_id: ", file_id); 
-      if ((file_id != null) && (file_id != "")) {
+      console.log("file_id: ", file_id);
+      if (file_id != null && file_id != "") {
         let url = new URL(`/api/v1/download`, opensubtitlesUrl);
         let payload = await fetch(url, {
           headers: {

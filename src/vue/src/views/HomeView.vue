@@ -9,8 +9,8 @@ const { setApiKey } = useOpensubtitlesStore();
 if (typeof import.meta.env.VITE_OPENSUBTITLES_API_KEY !== "undefined") {
   setApiKey(import.meta.env.VITE_OPENSUBTITLES_API_KEY);
 }
-if (localStorage.getItem('API_KEY') !== null) {
-  setApiKey(JSON.parse(localStorage.getItem('API_KEY')));
+if (localStorage.getItem("API_KEY") !== null) {
+  setApiKey(JSON.parse(localStorage.getItem("API_KEY")));
 }
 </script>
 
