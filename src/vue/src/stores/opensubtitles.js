@@ -25,7 +25,7 @@ export const useOpensubtitlesStore = defineStore({
         );
         titles = Array.from(unique_titles, ([name, value]) => name);
       }
-      return titles;
+      return titles.sort();
     },
     async fetchSubtitlesText(title) {
       let file_path = await this.fetchTitleFileURL(title);
