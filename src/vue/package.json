@@ -15,6 +15,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@trevoreyre/autocomplete-vue": "^3.0.2",
     "pinia": "^2.1.7",
     "vue": "^3.3.10",
     "vue-async-computed": "^4.0.1",

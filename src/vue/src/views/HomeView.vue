@@ -18,13 +18,11 @@ if (localStorage.getItem("API_KEY") !== null) {
   <main>
     <div id="search-box">
       <label for="search">Search the film:</label>
-      <input list="title-suggestions" v-model="search_input" id="search" />
-      <datalist id="title-suggestions">
-        <option
-          v-for="suggestion in title_suggestions"
-          :value="suggestion"
-        ></option>
-      </datalist>
+      <autocomplete
+      placeholder="Search the film"
+      :search="search"
+      @submit="onSearchSubmit"
+      ></autocomplete>
     </div>
     <div>
       <label for="file">Or choose file to scan</label>
@@ -67,42 +65,40 @@ if (localStorage.getItem("API_KEY") !== null) {
 export default {
   data() {
     return {
-      search_input: [],
     };
   },
   methods: {
+    reading(text) {
+      const { reset, storeWords, enrichWords } = useWordsStore();
+      reset();
+      storeWords(text);
+      enrichWords();
+    },
     async scan(event) {
       var reader = new FileReader();
       const { fetchSubtitlesText } = useOpensubtitlesStore();
-      var reading = function (text) {
-        const { reset, storeWords, enrichWords } = useWordsStore();
-        reset();
-        storeWords(text);
-        enrichWords();
-      };
       const file_name = this.$refs.fileInput.value;
-      if (file_name == "") {
-        // No file so downloading from OpenSubtitles.
-        let text = await fetchSubtitlesText(this.search_input);
-        reading(text);
-      } else {
+      if (file_name != "") {
         reader.readAsText(this.$refs.fileInput.files[0]);
         reader.onload = function () {
           var text = reader.result;
           // Process the text here.
-          reading(text);
+          this.reading(text);
         };
       }
     },
+    async onSearchSubmit(result) {
+      // No file so downloading from OpenSubtitles.
+      const { fetchSubtitlesText } = useOpensubtitlesStore();
+      let text = await fetchSubtitlesText(result);
+      this.reading(text);
+    },
+    async search(input) {
+      const { fetchHints } = useOpensubtitlesStore();
+      return await fetchHints(input);
+    },
   },
   asyncComputed: {
-    async title_suggestions() {
-      const { fetchHints } = useOpensubtitlesStore();
-      if (this.search_input != "") {
-        return await fetchHints(this.search_input);
-      }
-      return [];
-    },
   },
 };
 </script>
