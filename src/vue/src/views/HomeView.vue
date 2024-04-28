@@ -40,7 +40,7 @@ if (localStorage.getItem("API_KEY") !== null) {
       />
     </div>
     <div>
-      <button :disabled="isScanDisabled" @click="scan">Scan</button>
+      <button :hidden="isScanDisabled" @click="scan">Scan</button>
     </div>
     <div>
       <MoonLoader v-if="opensubtitlesLoading"></MoonLoader>
