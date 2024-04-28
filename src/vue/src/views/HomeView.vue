@@ -19,9 +19,9 @@ if (localStorage.getItem("API_KEY") !== null) {
     <div id="search-box">
       <label for="search">Search the film:</label>
       <autocomplete
-      placeholder="Search the film"
-      :search="search"
-      @submit="onSearchSubmit"
+        placeholder="Search the film"
+        :search="search"
+        @submit="onSearchSubmit"
       ></autocomplete>
     </div>
     <div>
@@ -36,7 +36,7 @@ if (localStorage.getItem("API_KEY") !== null) {
       />
     </div>
     <div>
-      <button :disabled='isScanDisabled' @click="scan">Scan</button>
+      <button :disabled="isScanDisabled" @click="scan">Scan</button>
     </div>
     <div>
       <progress
@@ -66,8 +66,8 @@ if (localStorage.getItem("API_KEY") !== null) {
 export default {
   data() {
     return {
-      fileInput: ""
-    }
+      fileInput: "",
+    };
   },
   methods: {
     reading(text) {
@@ -105,12 +105,11 @@ export default {
     },
   },
   computed: {
-    isScanDisabled: function() {
+    isScanDisabled: function () {
       return this.fileInput == "";
-    }
+    },
   },
-  asyncComputed: {
-  },
+  asyncComputed: {},
 };
 </script>
 
