@@ -18,9 +18,9 @@ if (localStorage.getItem("API_KEY") !== null) {
 <template>
   <main>
     <div id="search-box">
-      <label for="search">Search the film:</label>
+      <label for="search">Search the film and click on the result:</label>
       <autocomplete
-        placeholder="Search the film"
+        placeholder="Search the film and click on the result"
         auto-select
         submitOnEnter="True"
         :search="search"
