@@ -20,7 +20,10 @@ if (localStorage.getItem("API_KEY") !== null) {
       <label for="search">Search the film:</label>
       <autocomplete
         placeholder="Search the film"
+        auto-select
+        submitOnEnter="True"
         :search="search"
+        :debounce-time="500"
         @submit="onSearchSubmit"
       ></autocomplete>
     </div>
