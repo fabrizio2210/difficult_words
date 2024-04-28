@@ -43,6 +43,9 @@ if (localStorage.getItem("API_KEY") !== null) {
       <button :hidden="isScanDisabled" @click="scan">Scan</button>
     </div>
     <div>
+      <a v-if="downloadURL" target="_blank" :href=downloadURL download>Download subtitle</a>
+    </div>
+    <div>
       <MoonLoader v-if="opensubtitlesLoading"></MoonLoader>
       <progress
         v-if="loading"
@@ -116,6 +119,10 @@ export default {
     opensubtitlesLoading: function () {
       const store = useOpensubtitlesStore();
       return store.loading;
+    },
+    downloadURL: function () {
+      const store = useOpensubtitlesStore();
+      return store.downloadURL;
     },
   },
   asyncComputed: {},

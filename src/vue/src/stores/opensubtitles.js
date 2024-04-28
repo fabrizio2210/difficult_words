@@ -8,6 +8,7 @@ export const useOpensubtitlesStore = defineStore({
   state: () => ({
     api_key: "",
     loading: false,
+    downloadURL: "",
   }),
   actions: {
     setApiKey(key) {
@@ -29,8 +30,9 @@ export const useOpensubtitlesStore = defineStore({
     },
     async fetchSubtitlesText(title) {
       this.loading = true;
+      this.downloadURL = "";
       let file_path = await this.fetchTitleFileURL(title);
-      console.log("file_path: ", file_path);
+      this.downloadURL = file_path;
       if (file_path != null && file_path != "") {
         var payload = await fetch(file_path).then((response) =>
           response.text(),
