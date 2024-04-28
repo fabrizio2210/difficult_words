@@ -8,7 +8,7 @@ import { useOpensubtitlesStore } from "../stores/opensubtitles";
     <ul>
       <li v-for="setting in settings" :key="setting.key">
         <label class="desc" :for="setting.key">{{ setting.key }} :</label>
-        <input :id="setting.key" v-model="setting.value" size="30"/>
+        <input :id="setting.key" v-model="setting.value" size="30" />
       </li>
     </ul>
     <div>

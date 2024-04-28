@@ -5,7 +5,6 @@ import Banner from "./components/Banner.vue";
 
 <template>
   <header>
-
     <div class="wrapper">
       <Banner msg="Learn the difficult words!" />
 

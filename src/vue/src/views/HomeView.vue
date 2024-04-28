@@ -2,7 +2,7 @@
 import { storeToRefs } from "pinia";
 import { useWordsStore } from "../stores/words";
 import { useOpensubtitlesStore } from "../stores/opensubtitles";
-import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 const { words, lookedUpCount, wordsFrequency, wordsContext, loading } =
   storeToRefs(useWordsStore());
 const { setApiKey } = useOpensubtitlesStore();
@@ -43,7 +43,9 @@ if (localStorage.getItem("API_KEY") !== null) {
       <button :hidden="isScanDisabled" @click="scan">Scan</button>
     </div>
     <div>
-      <a v-if="downloadURL" target="_blank" :href=downloadURL download>Download subtitle</a>
+      <a v-if="downloadURL" target="_blank" :href="downloadURL" download
+        >Download subtitle</a
+      >
     </div>
     <div>
       <MoonLoader v-if="opensubtitlesLoading"></MoonLoader>
