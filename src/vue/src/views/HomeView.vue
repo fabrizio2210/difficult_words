@@ -2,6 +2,7 @@
 import { storeToRefs } from "pinia";
 import { useWordsStore } from "../stores/words";
 import { useOpensubtitlesStore } from "../stores/opensubtitles";
+import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
 const { words, lookedUpCount, wordsFrequency, wordsContext, loading } =
   storeToRefs(useWordsStore());
 const { setApiKey } = useOpensubtitlesStore();
@@ -42,6 +43,7 @@ if (localStorage.getItem("API_KEY") !== null) {
       <button :disabled="isScanDisabled" @click="scan">Scan</button>
     </div>
     <div>
+      <MoonLoader v-if="opensubtitlesLoading"></MoonLoader>
       <progress
         v-if="loading"
         :value="(100 * lookedUpCount) / wordsFrequency.size"
@@ -110,6 +112,10 @@ export default {
   computed: {
     isScanDisabled: function () {
       return this.fileInput == "";
+    },
+    opensubtitlesLoading: function () {
+      const store = useOpensubtitlesStore();
+      return store.loading;
     },
   },
   asyncComputed: {},

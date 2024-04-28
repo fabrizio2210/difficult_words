@@ -28,14 +28,17 @@ export const useOpensubtitlesStore = defineStore({
       return titles.sort();
     },
     async fetchSubtitlesText(title) {
+      this.loading = true;
       let file_path = await this.fetchTitleFileURL(title);
       console.log("file_path: ", file_path);
       if (file_path != null && file_path != "") {
         var payload = await fetch(file_path).then((response) =>
           response.text(),
         );
+        this.loading = false;
         return payload;
       }
+      this.loading = false;
       return null;
     },
     async fetchTitleFileURL(title) {
