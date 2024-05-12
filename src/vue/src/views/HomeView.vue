@@ -17,30 +17,37 @@ if (localStorage.getItem("API_KEY") !== null) {
 
 <template>
   <main>
-    <div id="search-box">
-      <label for="search">Search the film and click on the result:</label>
-      <autocomplete
-        placeholder="Search the film and click on the result"
-        auto-select
-        submitOnEnter="True"
-        :search="search"
-        :debounce-time="500"
-        @submit="onSearchSubmit"
-      ></autocomplete>
+    <div class="input-box">
+      <div :hidden="!isSearchDisabled">
+        You need to populate API_KEY varaible in setting to use the search.
+      </div>
+      <div :class="{ disableddiv: isSearchDisabled }" id="search-input-box">
+        <label for="search">Search the film and click on the result:</label>
+        <autocomplete
+          placeholder="Search the film and click on the result"
+          auto-select
+          :submitOnEnter=true
+          :search="search"
+          :debounce-time="500"
+          @submit="onSearchSubmit"
+        ></autocomplete>
+      </div>
     </div>
-    <div>
-      <label for="file">Or choose file to scan</label>
-      <input
-        type="file"
-        id="file"
-        name="file"
-        ref="fileInput"
-        v-on:change="fileSelectInput"
-        accept=".srt, .text, .txt"
-      />
-    </div>
-    <div>
-      <button :hidden="isScanDisabled" @click="scan">Scan</button>
+    <div class="input-box">
+      <div>
+        <label for="file">Or choose file to scan</label>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          ref="fileInput"
+          v-on:change="fileSelectInput"
+          accept=".srt, .text, .txt"
+        />
+      </div>
+      <div>
+        <button :hidden="isScanDisabled" @click="scan">Scan</button>
+      </div>
     </div>
     <div>
       <a v-if="downloadURL" target="_blank" :href="downloadURL" download
@@ -118,6 +125,10 @@ export default {
     isScanDisabled: function () {
       return this.fileInput == "";
     },
+    isSearchDisabled: function() {
+      const store = useOpensubtitlesStore();
+      return store.api_key == "";
+    },
     opensubtitlesLoading: function () {
       const store = useOpensubtitlesStore();
       return store.loading;
@@ -136,8 +147,16 @@ input {
   padding: 5px;
 }
 
-#search-box {
+.disableddiv {
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.input-box {
   padding: 10px;
+  margin: 20px;
+  border-radius: 25px;
+  border: 2px solid var(--color-border);
 }
 
 #search {
