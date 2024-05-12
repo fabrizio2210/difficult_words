@@ -44,6 +44,10 @@ export default {
 </script>
 
 <style>
+ul {
+  list-style: none;
+}
+
 .desc {
   padding: 10px;
 }
