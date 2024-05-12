@@ -1,6 +1,10 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <div>
+      This application has been deveoped by Fabrizio Waldner.<br>
+      Repository on <a href="https://github.com/fabrizio2210/difficult_words">https://github.com/fabrizio2210/difficult_words</a>.<br>
+      The data is retrieved from OpenSubtitles&reg; and DataMuse&reg;.<br>
+    </div>
   </div>
 </template>
 
