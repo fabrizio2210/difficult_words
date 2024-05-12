@@ -2,6 +2,7 @@
 import { storeToRefs } from "pinia";
 import { useWordsStore } from "../stores/words";
 import { useOpensubtitlesStore } from "../stores/opensubtitles";
+import { RouterLink } from "vue-router";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 const { words, lookedUpCount, wordsFrequency, wordsContext, loading } =
   storeToRefs(useWordsStore());
@@ -19,7 +20,8 @@ if (localStorage.getItem("API_KEY") !== null) {
   <main>
     <div class="input-box">
       <div :hidden="!isSearchDisabled">
-        You need to populate API_KEY varaible in setting to use the search.
+        You need to populate API_KEY varaible 
+        in <RouterLink to="/settings">settings</RouterLink> to use the search.
       </div>
       <div :class="{ disableddiv: isSearchDisabled }" id="search-input-box">
         <label for="search">Search the film and click on the result:</label>
