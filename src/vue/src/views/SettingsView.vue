@@ -25,10 +25,13 @@ export default {
   data() {
     return {
       settings: [
-      { key: "API_KEY",
-        value: "",
-        description: "API key to query OpenSubtitles. Follow instruction at <a href='https://opensubtitles.stoplight.io/docs/opensubtitles-api/e3750fd63a100-getting-started' target='_blank'>their documentation</a>", 
-      }],
+        {
+          key: "API_KEY",
+          value: "",
+          description:
+            "API key to query OpenSubtitles. Follow instruction at <a href='https://opensubtitles.stoplight.io/docs/opensubtitles-api/e3750fd63a100-getting-started' target='_blank'>their documentation</a>",
+        },
+      ],
     };
   },
   methods: {

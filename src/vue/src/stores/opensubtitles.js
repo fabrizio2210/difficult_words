@@ -7,6 +7,7 @@ export const useOpensubtitlesStore = defineStore({
   id: "opensubtitles",
   state: () => ({
     api_key: "",
+    error: "",
     loading: false,
     downloadURL: "",
   }),
@@ -52,7 +53,7 @@ export const useOpensubtitlesStore = defineStore({
           headers: {
             "Content-Type": "application/json",
             "Api-Key": this.api_key,
-            "User-Agent": userAgent,
+            "X-User-Agent": userAgent,
           },
           method: "POST",
           body: JSON.stringify({ file_id: file_id }),
@@ -72,6 +73,7 @@ export const useOpensubtitlesStore = defineStore({
       }
     },
     async fetchTitles(text) {
+      this.error = "";
       if (text.length < 3) {
         return [];
       }
@@ -84,9 +86,19 @@ export const useOpensubtitlesStore = defineStore({
         headers: {
           "Content-Type": "application/json",
           "Api-Key": this.api_key,
-          "User-Agent": userAgent,
+          "X-User-Agent": userAgent,
         },
-      }).then((response) => response.json());
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .catch((response) => {
+          this.error = "Failed to fetch titles: " + response.status ;
+          return [];
+        });
       if (typeof payload.data !== "undefined") {
         return payload.data;
       }

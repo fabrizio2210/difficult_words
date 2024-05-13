@@ -20,15 +20,15 @@ if (localStorage.getItem("API_KEY") !== null) {
   <main>
     <div class="input-box">
       <div :hidden="!isSearchDisabled">
-        You need to populate API_KEY varaible 
-        in <RouterLink to="/settings">settings</RouterLink> to use the search.
+        You need to populate API_KEY varaible in
+        <RouterLink to="/settings">settings</RouterLink> to use the search.
       </div>
       <div :class="{ disableddiv: isSearchDisabled }" id="search-input-box">
         <label for="search">Search the film and click on the result:</label>
         <autocomplete
           placeholder="Search the film and click on the result"
           auto-select
-          :submitOnEnter=true
+          :submitOnEnter="true"
           :search="search"
           :debounce-time="500"
           @submit="onSearchSubmit"
@@ -127,7 +127,7 @@ export default {
     isScanDisabled: function () {
       return this.fileInput == "";
     },
-    isSearchDisabled: function() {
+    isSearchDisabled: function () {
       const store = useOpensubtitlesStore();
       return store.api_key == "";
     },
