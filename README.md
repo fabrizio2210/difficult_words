@@ -19,3 +19,16 @@ $ docker/lib/createLocalStack.sh
 ```
 
 Point your browser to http://localhost/
+
+
+### Develop 
+
+You need Docker engine installed on the PC.
+
+```
+$ git clone https://github.com/fabrizio2210/difficult_words.git
+$ cd difficult_words/
+$ docker/lib/createLocalDevStack.sh
+```
+
+Point your browser to http://localhost/ and at every change the website will be updated.
