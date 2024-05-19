@@ -18,6 +18,8 @@ if (localStorage.getItem("API_KEY") !== null) {
 
 <template>
   <main>
+    <div v-if="error_message != ''" v-html="error_message"class="error-box">
+    </div>
     <div class="input-box">
       <div :hidden="!isSearchDisabled">
         You need to populate API_KEY varaible in
@@ -135,6 +137,10 @@ export default {
       const store = useOpensubtitlesStore();
       return store.loading;
     },
+    error_message: function () {
+      const store = useOpensubtitlesStore();
+      return store.error;
+    },
     downloadURL: function () {
       const store = useOpensubtitlesStore();
       return store.downloadURL;
@@ -147,6 +153,18 @@ export default {
 <style scoped>
 input {
   padding: 5px;
+}
+
+.error-box {
+  border-radius: 25px;
+  border: 1px solid;
+  margin: 10px 0px;
+  padding: 15px 10px 15px 50px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  color: #d8000c;
+  background-color: #ffbaba;
+  background-image: url("../assets/error.png");
 }
 
 .disableddiv {
