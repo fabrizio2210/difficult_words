@@ -18,8 +18,11 @@ if (localStorage.getItem("API_KEY") !== null) {
 
 <template>
   <main>
-    <div v-if="error_message != ''" v-html="error_message"class="error-box">
-    </div>
+    <div
+      v-if="error_message != ''"
+      v-html="error_message"
+      class="error-box"
+    ></div>
     <div class="input-box">
       <div :hidden="!isSearchDisabled">
         You need to populate API_KEY varaible in

@@ -98,14 +98,15 @@ export const useOpensubtitlesStore = defineStore({
         .catch((response) => {
           this.error = "Failed to fetch titles";
           if (typeof response.status !== "undefined") {
-            this.response = response
+            this.response = response;
             this.error += ": Status " + response.status;
             return response.text();
           }
           if (typeof response.message !== "undefined") {
             this.error += ": " + response.message;
           }
-        }).then((payload) => { 
+        })
+        .then((payload) => {
           if (typeof payload !== "undefined") {
             if (typeof payload.data !== "undefined") {
               return payload;
@@ -113,11 +114,14 @@ export const useOpensubtitlesStore = defineStore({
             // it means json failed
             this.error += ", " + payload;
             if (this.response.status == 403) {
-              this.error += "<br>Is the API_KEY valid?"
+              this.error += "<br>Is the API_KEY valid?";
             }
           }
         });
-      if (typeof payload !== "undefined" && typeof payload.data !== "undefined") {
+      if (
+        typeof payload !== "undefined" &&
+        typeof payload.data !== "undefined"
+      ) {
         return payload.data;
       }
       return [];
