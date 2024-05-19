@@ -7,3 +7,15 @@ It uses [OpenSubtitles API](https://www.opensubtitles.org/en/search/subs) to fet
 Then, it uses [DataMuse](https://datamuse.com/) to retieve definition and frequency.
 
 Written by Fabrizio Waldner.
+
+### Install/Use
+
+You need Docker engine installed on the PC.
+
+```
+$ git clone https://github.com/fabrizio2210/difficult_words.git
+$ cd difficult_words/
+$ docker/lib/createLocalStack.sh
+```
+
+Point your browser to http://localhost/
